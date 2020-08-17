@@ -1,0 +1,2 @@
+F:\article\project\generate_sequence\Debug\generate_sequence.exe
+F:\article\project\generate_sequence\Debug\generate_sequence.pdb
