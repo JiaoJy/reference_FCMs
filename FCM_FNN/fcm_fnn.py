@@ -311,5 +311,5 @@ class FCM_FNN(object):
                     iconcept.sigma[ini] -= learnRate * deltaSigma
                     if iconcept.sigma[ini] < 0:
                         iconcept.sigma[ini] = 1e-100
-                        print "Warn: maybe it's impossible to train with this DataSet and learning rate"
+                        print("Warn: maybe it's impossible to train with this DataSet and learning rate")
         return math.sqrt(err * 2 / (len(dataSet) * len(dataSet[0][1])))
