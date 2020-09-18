@@ -7,6 +7,7 @@ import copy
 sqrt2 = math.sqrt(2)
 sqrtPi = math.sqrt(math.pi)
 
+#返回x的误差函数
 def erf(x):
     return math.erf(x) * 0.5
 
@@ -210,7 +211,7 @@ class FCM_FNN(object):
     def predict(self, X):
         if len(X) != len(self.concepts):
             raise Exception("The dimension of X is inavailable")
-        # layer1
+        # layer1    i为索引，v为实际值
         for i, v in enumerate(X):
             self.layerf[1][i] = v
             self.layerx[1][i] = self.layerf[1][i]
@@ -290,8 +291,8 @@ class FCM_FNN(object):
                             for ti, tconcept in enumerate(self.concepts):
                                 if ti != l:
                                     for tni in range(tconcept.numOfTerms):
-                                        numerator += self.layerf[3][l][ml][ti][tni] * tconcept.C[tni] * tconcept.sigma[tni]
-                                        denominator += self.layerf[3][l][ml][ti][tni] * tconcept.sigma[tni]
+                                        numerator += self.layerf[3][l][ml][ti][tni] * tconcept.C[tni] * tconcept.sigma[tni] #分子
+                                        denominator += self.layerf[3][l][ml][ti][tni] * tconcept.sigma[tni]                 #分母
                             delta_yl = lconcept.xi[ml]
                             delta_x = (iconcept.C[ini] * iconcept.sigma[ini] * denominator - iconcept.sigma[ini] * numerator) / denominator ** 2
                             delta_f_C = self.layerx[2][ii][ini] * (2 * (self.layerx[1][ii] - iconcept.C[ini]) / iconcept.sigma[ini] ** 2) \
@@ -313,3 +314,4 @@ class FCM_FNN(object):
                         iconcept.sigma[ini] = 1e-100
                         print("Warn: maybe it's impossible to train with this DataSet and learning rate")
         return math.sqrt(err * 2 / (len(dataSet) * len(dataSet[0][1])))
+    

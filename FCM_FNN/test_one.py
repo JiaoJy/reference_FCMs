@@ -1,6 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep  9 09:51:36 2020
+
+@author: JiaoJy
+"""
 # encoding: utf-8
 import fcm_fnn
-import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -63,13 +68,12 @@ if __name__ == "__main__":
     # data = pd.read_csv('./data/dataProcess.csv',index_col = 0)
     # data = pd.DataFrame(np.array(data.iloc[:,1]))
     # data.to_csv('./data/datatest.csv',index=None)
-    #labelSet, testSet = loadDataSet("./data/datatest.csv")
-    labelSet, testSet = loadDataSets("./data/dataProcess.csv")
+    labelSet, testSet = loadDataSet("./data/datatest.csv")
 
     # with open("fnn.bin", "rb") as f:
     #     fnn = pickle.loads(f.read())
 
-    fnn = fcm_fnn.FCM_FNN(3,3,3,3,3,3)
+    fnn = fcm_fnn.FCM_FNN(4,4,4,4)
     # fnn = fcm_fnn.FCM_FNN(6)
 
     for i in range(25):
@@ -88,7 +92,7 @@ if __name__ == "__main__":
     testData = []
     for X, D in testSet:
         testData.append(D[0])
-    testData += testSet[-1][1][1:6]
+    testData += testSet[-1][1][1:4]
     with open("testData.csv", "w") as f:
         f.write("\n".join(map(lambda v:str(v), testData)))
 
@@ -96,7 +100,7 @@ if __name__ == "__main__":
     predictData = []
     for X, D in testSet:
         predictData.append(fnn.predict(X)[0])
-    predictData += fnn.predict(testSet[-1][0])[1:6]
+    predictData += fnn.predict(testSet[-1][0])[1:4]
     with open("predictData.csv", "w") as f:
         f.write("\n".join(map(lambda v:str(v), predictData)))
     
